@@ -1,16 +1,37 @@
 
+**🚀 Prerequisites**
 
-# Word count example
+To run this starter code, you will need: 
 
-These programs will count words in a given text, plot a bar chart of the 10
-most common words, and test [Zipf's
-law](https://en.wikipedia.org/wiki/Zipf%27s_law) on the two most common words.
+- Python 3.11 or higher. In LUMI, you can work with biopythontools/11.3.0_3.12.3.
 
-- Inspired by and derived from https://hpc-carpentry.github.io/hpc-python/
-  which is distributed under
-  [Creative Commons Attribution license (CC-BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
-- Documentation: https://word-count.readthedocs.io
+```bash
+module load biopythontools/11.3.0_3.12.3
+```
 
-We use this example in two [CodeRefinery](https://coderefinery.org/) lessons:
-- https://coderefinery.github.io/reproducible-research/
-- https://coderefinery.github.io/documentation/
+**🔧 Installation**
+
+1. Clone this repository
+2. Create an environment and install dependencies
+
+```bash 
+  python3 -m venv .venv
+  source .venv/bin/activate
+  pip install -r requirements.txt
+```
+
+**Transcribe**
+
+To generate the transcription of an audio file, run: 
+
+```bash
+python3 model.py audio.mp3
+```
+
+**📝 License**
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+**💼 Variables to tune**
+
+Feel free to change:
