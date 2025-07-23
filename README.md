@@ -25,7 +25,7 @@ module load biopythontools/11.3.0_3.12.3
 To generate the transcription of an audio file, run: 
 
 ```bash
-python3 model.py audio.mp3
+python3 model.py audio.flac
 ```
 
 **📝 License**
