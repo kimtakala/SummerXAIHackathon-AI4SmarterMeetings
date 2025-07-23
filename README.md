@@ -20,7 +20,7 @@ module load biopythontools/11.3.0_3.12.3
   pip install -r requirements.txt
 ```
 
-**Transcribe**
+**🧠 Transcribe**
 
 To generate the transcription of an audio file, run: 
 
@@ -29,7 +29,7 @@ python3 model.py audio.flac
 ```
 
 
-**What you have to-do?**
+**🧑‍🏫 What you have to-do?**
 
 Surprise us by bein creative in creating ai-agent that can listen to audio chats and convert it to text and also summarize the meeting. For simplicity, a starter code that convert audio into text has been provided for you. The dataset contains both audio and text so you can do more adventures. 
 
