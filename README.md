@@ -26,7 +26,7 @@ To run this starter code, you will need:
 - Python 3.11 or higher. 
 
 ```bash
-module load cray-python/11.3.0_3.12.3
+module load  biopythontools/11.3.0_3.10.6_1.76
 ```
 
 **🔧 Installation**
