@@ -72,7 +72,7 @@ python3 model.py audio.flac
 
 **🧑‍🏫 What you have to-do?**
 
-Surprise us by bein creative in creating ai-agent that can listen to audio chats and convert it to text and also summarize the meeting. For simplicity, a starter code that convert audio into text has been provided for you. The dataset contains both audio and text so you can do more adventures. 
+Surprise us by being creative in creating ai-agent that can listen to audio chats and convert it to text and also summarize the meeting. For simplicity, a starter code that convert audio into text has been provided for you. The dataset contains both audio and text so you can do more adventures. 
 
 
 
