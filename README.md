@@ -61,9 +61,7 @@ export PATH="<install_dir>/bin:$PATH"
 ➡️ main.py: Runs the full pipeline: takes an audio file path as input, uses the Transcriber to generate a transcript, and prints the transcript to the console. Example usage:
 
 
-**🧠 Transcribe**
 
-To generate the transcription of an audio file, run: 
 
 ```bash
 python3 model.py audio.flac
