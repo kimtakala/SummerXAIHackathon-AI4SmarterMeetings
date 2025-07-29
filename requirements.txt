@@ -1,5 +1,4 @@
-openai
 faster-whisper
-aitta-client
 python-dotenv
 requests
+torch
