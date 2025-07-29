@@ -64,7 +64,7 @@ export PATH="<install_dir>/bin:$PATH"
 
 
 ```bash
-python3 model.py audio.flac
+python3 main.py audio.flac
 ```
 
 
