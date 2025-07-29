@@ -52,6 +52,15 @@ conda-containerize new --prefix <install_dir> env.yml
 export PATH="<install_dir>/bin:$PATH"
 ```
 
+
+**🛠️ What the Python Scripts Do**
+
+➡️ transcriber.py: Defines a Transcriber class that uses the Faster-Whisper ASR model to convert audio files (.flac, .wav, etc.) into plain English text. You can specify model size (e.g., "base", "small") and language.
+
+
+➡️ main.py: Runs the full pipeline: takes an audio file path as input, uses the Transcriber to generate a transcript, and prints the transcript to the console. Example usage:
+
+
 **🧠 Transcribe**
 
 To generate the transcription of an audio file, run: 
