@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 accelerate==1.10.0
 aiocache==0.12.3
 aiofiles==24.1.0
@@ -321,3 +322,10 @@ yarl==1.20.1
 youtube-transcript-api==1.1.0
 zipp==3.23.0
 zstandard==0.23.0
+=======
+whisperx>=3.4.2
+python-dotenv>=1.1.1
+torch>=2.8.0
+torchaudio>=2.8.0
+pyannote.audio>=3.3.2
+>>>>>>> test

@@ -1,6 +1,9 @@
 *cache*
 .local
 .vscode
-70968
+audio_1/
+.env
+output/
+
 venv/
 .tmpdir
