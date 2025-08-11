@@ -2,6 +2,6 @@
 venv/
 .local
 .vscode
-audio_1/
+data/*/
 .env
 output/
