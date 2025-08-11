@@ -60,14 +60,33 @@
 
 ### Usage
 
-**1. Extract sample audio data:**
+**Option 1: Use existing sample data**
+
+1. **Extract sample audio data:**
 
 ```bash
 cd data
-unzip audio_1.zip -d audio_1
+unzip audio_1.zip
+mv 70*/ audio_1/
 ```
 
 This will extract the audio files to `data/audio_1/` directory.
+
+**Option 2: Generate new test data for speaker identification**
+
+1. **Generate multi-speaker audio files:**
+
+```bash
+python generate_audio_files.py
+```
+
+This script will:
+
+- Download 3 random audio samples from LibriSpeech dataset (different speakers)
+- Create a folder named after the first file (e.g., `data/1234-5678-0001/`)
+- Save individual speaker files (`speaker_1.flac`, `speaker_2.flac`, `speaker_3.flac`)
+- Combine all speakers into one file for testing speaker identification
+- Create transcripts for each file
 
 **2. Transcribe an audio file:**
 
@@ -80,15 +99,26 @@ python main.py <audio_file_path>
 ```bash
 # Using the extracted sample data
 python main.py data/audio_1/61-70968-0001.flac
+
+# Using generated multi-speaker test data
+python main.py data/1234-5678-0001/combined_speakers.flac
 ```
 
-The script will generate multiple output formats in the `./output/` directory:
+The script will generate multiple output formats in the `./output/<audio_filename>/` directory:
 
 - JSON (detailed transcription with timestamps)
 - TXT (simple text with speaker labels)
 - SRT (subtitle format)
 - VTT (WebVTT subtitle format)
 - TSV (tab-separated values with timing data)
+
+**Testing Speaker Identification:**
+
+The generated multi-speaker files are perfect for testing the speaker diarization feature:
+
+- The combined audio file contains 3 different speakers speaking consecutively
+- The system should identify different speakers and label them as SPEAKER_00, SPEAKER_01, SPEAKER_02
+- Compare the output with the original transcript files to verify accuracy
 
 ### GitHub Actions / CI/CD Usage
 
