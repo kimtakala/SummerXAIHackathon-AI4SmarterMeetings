@@ -46,7 +46,7 @@ for i, pos in enumerate(random_positions):
     utterance_id = sample["id"]
 
     if folder_name is None:
-        folder_name = f"{speaker_id}-{chapter_id}-{utterance_id}"
+        folder_name = f"{speaker_id}-{chapter_id}-{utterance_id}"[:10]
 
     filename = f"{speaker_id}-{chapter_id}-{utterance_id}.flac"
 
@@ -80,18 +80,18 @@ for i, (audio_data, transcript) in enumerate(zip(all_audio_data, all_transcripts
 # Stitch all audio files together
 print("Stitching audio files together...")
 combined_audio = np.concatenate(all_audio_data)
-combined_filepath = os.path.join(output_dir, f"{folder_name}.flac")
+combined_filepath = os.path.join(output_dir, f"combined_audio.flac")
 sf.write(combined_filepath, combined_audio, sample_rate)
 
 # Save combined transcript
 combined_transcript = "\n\n".join(
     [f"[SPEAKER_{i+1}] {transcript}" for i, transcript in enumerate(all_transcripts)]
 )
-combined_transcript_file = os.path.join(output_dir, f"{folder_name}.txt")
+combined_transcript_file = os.path.join(output_dir, f"combined_transcript.txt")
 with open(combined_transcript_file, "w") as f:
     f.write(combined_transcript)
 
-print(f"✅ Saved combined audio: {folder_name}.flac")
+print(f"✅ Saved combined audio: combined_audio.flac")
 print(f"✅ Total duration: {len(combined_audio) / sample_rate:.2f} seconds")
 
 print(
@@ -99,5 +99,5 @@ print(
 )
 print("Files created:")
 print("  - speaker_1.flac, speaker_2.flac, speaker_3.flac (individual)")
-print(f"  - {folder_name}.flac (stitched together for speaker identification testing)")
+print(f"  - combined_audio.flac (stitched together for speaker identification testing)")
 print("  - corresponding .txt files with transcripts")
