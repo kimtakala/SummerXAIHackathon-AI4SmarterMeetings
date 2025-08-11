@@ -51,21 +51,23 @@ def main(audio_file):
 
     # Diarization (optional)
     try:
-        from pyannote.audio import Pipeline
-
-        diarize_model = Pipeline.from_pretrained(
-            "pyannote/speaker-diarization", use_auth_token=hf_token
+        print("Loading diarization model...")
+        diarize_model = whisperx.diarize.DiarizationPipeline(
+            use_auth_token=hf_token, device=device
         )
-        diarize_model.to(torch.device(device))
-        diarize_segments = diarize_model(audio)
+        print("Running diarization...")
+        # Pass the original audio file path instead of the whisperx audio object
+        diarize_segments = diarize_model(audio_file)
+        print("Assigning speakers to words...")
         result = whisperx.assign_word_speakers(diarize_segments, result)
         print("✅ Speaker diarization completed")
     except Exception as e:
-        print(f"⚠️ Speaker diarization failed: {e}")
-        print("⚠️ Continuing without speaker diarization")
-        # Add default speaker labels
-        for segment in result["segments"]:
-            segment["speaker"] = "UNABLE_TO_IDENTIFY"
+        print(f"⚠️ Speaker diarization failed: {type(e).__name__}: {str(e)}")
+        import traceback
+
+        print("Full traceback:")
+        traceback.print_exc()
+        return
 
     # Create output directory with subfolder for this audio file
     base_filename = os.path.splitext(os.path.basename(audio_file))[0]
@@ -147,6 +149,6 @@ def format_time_vtt(seconds):
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: python main.py <audio_file>")
-        print("Example: python main.py data/70968/61-70968-0000.flac")
+        print("Example: python main.py data/audio_1/61-70968-0000.flac")
     else:
         main(sys.argv[1])
