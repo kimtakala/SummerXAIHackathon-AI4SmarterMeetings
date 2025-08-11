@@ -1,5 +1,5 @@
-faster-whisper
-python-dotenv
-requests
-torch
-whisperx
+whisperx>=3.4.2
+python-dotenv>=1.1.1
+torch>=2.8.0
+torchaudio>=2.8.0
+pyannote.audio>=3.3.2
