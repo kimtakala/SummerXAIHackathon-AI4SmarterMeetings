@@ -1,9 +1,15 @@
-*cache*
-.local
-.vscode
-data/*/
+#local files
 .env
-output/
-
-venv/
+.local
 .tmpdir
+.vscode
+
+# virtual environment
+venv/
+
+# cache
+*cache*
+
+# generated input/output files
+data/*/
+output/
