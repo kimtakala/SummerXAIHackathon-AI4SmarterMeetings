@@ -1,8 +1,4 @@
 *cache*
-venv/
 .local
 .vscode
 70968
-pyvenv.cfg
-lib
-bin
