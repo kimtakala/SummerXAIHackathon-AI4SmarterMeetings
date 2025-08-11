@@ -64,7 +64,8 @@
 
 ```bash
 cd data
-unzip audio_1.zip -d audio_1
+unzip audio_1.zip
+mv 70*/ audio_1/
 ```
 
 This will extract the audio files to `data/audio_1/` directory.
