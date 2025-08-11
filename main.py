@@ -65,14 +65,12 @@ def main(audio_file):
         print("⚠️ Continuing without speaker diarization")
         # Add default speaker labels
         for segment in result["segments"]:
-            segment["speaker"] = "SPEAKER_00"
+            segment["speaker"] = "UNABLE_TO_IDENTIFY"
 
-    # Create output directory
-    output_dir = "./output/"
-    os.makedirs(output_dir, exist_ok=True)
-
-    # Get base filename without extension
+    # Create output directory with subfolder for this audio file
     base_filename = os.path.splitext(os.path.basename(audio_file))[0]
+    output_dir = os.path.join("./output/", base_filename)
+    os.makedirs(output_dir, exist_ok=True)
 
     # Save results in multiple formats (similar to whisperx CLI)
     # JSON format
@@ -86,7 +84,7 @@ def main(audio_file):
     txt_path = os.path.join(output_dir, f"{base_filename}.txt")
     with open(txt_path, "w") as f:
         for segment in result["segments"]:
-            speaker = segment.get("speaker", "SPEAKER_00")
+            speaker = segment.get("speaker", "UNKNOWN_SPEAKER")
             f.write(f"[{speaker}] {segment['text']}\n")
 
     # SRT format
@@ -95,7 +93,7 @@ def main(audio_file):
         for i, segment in enumerate(result["segments"], 1):
             start_time = format_time_srt(segment["start"])
             end_time = format_time_srt(segment["end"])
-            speaker = segment.get("speaker", "SPEAKER_00")
+            speaker = segment.get("speaker", "UNKNOWN_SPEAKER")
             f.write(
                 f"{i}\n{start_time} --> {end_time}\n[{speaker}] {segment['text']}\n\n"
             )
@@ -107,7 +105,7 @@ def main(audio_file):
         for segment in result["segments"]:
             start_time = format_time_vtt(segment["start"])
             end_time = format_time_vtt(segment["end"])
-            speaker = segment.get("speaker", "SPEAKER_00")
+            speaker = segment.get("speaker", "UNKNOWN_SPEAKER")
             f.write(f"{start_time} --> {end_time}\n[{speaker}] {segment['text']}\n\n")
 
     # TSV format
@@ -115,7 +113,7 @@ def main(audio_file):
     with open(tsv_path, "w") as f:
         f.write("start\tend\tspeaker\ttext\n")
         for segment in result["segments"]:
-            speaker = segment.get("speaker", "SPEAKER_00")
+            speaker = segment.get("speaker", "UNKNOWN_SPEAKER")
             f.write(
                 f"{segment['start']:.3f}\t{segment['end']:.3f}\t{speaker}\t{segment['text']}\n"
             )
