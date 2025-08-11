@@ -52,6 +52,12 @@
    HF_TOKEN=your_huggingface_token_here
    ```
 
+**Important Notes:**
+
+- **Each user must accept the agreements individually** - sharing tokens violates Hugging Face terms of service
+- **Personal tokens only** - Do not share your token or use someone else's token
+- **For CI/CD**: Use GitHub repository secrets, but ensure the account that generated the token has accepted the required agreements
+
 ### Usage
 
 **Transcribe an audio file:**
@@ -73,6 +79,37 @@ The script will generate multiple output formats in the `./output/` directory:
 - SRT (subtitle format)
 - VTT (WebVTT subtitle format)
 - TSV (tab-separated values with timing data)
+
+### GitHub Actions / CI/CD Usage
+
+For automated workflows, you can use GitHub repository secrets:
+
+1. **Set up repository secret:**
+
+   - Go to your repository Settings → Secrets and variables → Actions
+   - Add a new secret named `HF_TOKEN` with your token value
+
+2. **Example workflow:**
+   ```yaml
+   # .github/workflows/transcribe.yml
+   name: Transcribe Audio
+   on: [push]
+   jobs:
+     transcribe:
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v4
+         - name: Set up Python
+           uses: actions/setup-python@v4
+           with:
+             python-version: "3.9"
+         - name: Install dependencies
+           run: pip install -r requirements.txt
+         - name: Transcribe
+           env:
+             HF_TOKEN: ${{ secrets.HF_TOKEN }}
+           run: python main.py data/audio.flac
+   ```
 
 ---
 

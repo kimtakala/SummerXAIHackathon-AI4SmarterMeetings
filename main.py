@@ -10,10 +10,14 @@ load_dotenv()
 def main(audio_file):
     print("[1] Transcribing with WhisperX...")
 
-    # Get HF token from environment
+    # Get HF token from environment (supports both .env and GitHub secrets)
     hf_token = os.getenv("HF_TOKEN")
     if not hf_token:
         print("Error: HF_TOKEN not found in environment variables")
+        print("Please either:")
+        print("1. Create a .env file with your personal HF_TOKEN for local development")
+        print("2. Set HF_TOKEN as an environment variable")
+        print("3. For GitHub Actions, use repository secrets")
         return
 
     # Set up WhisperX parameters

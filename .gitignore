@@ -4,3 +4,4 @@ venv/
 .vscode
 70968
 .env
+output/
