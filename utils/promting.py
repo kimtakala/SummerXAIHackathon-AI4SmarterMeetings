@@ -34,7 +34,7 @@ TEMPLATE \"\"\"
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate a Gemma 3 Modelfile from context.")
     parser.add_argument("-c", "--context", type=str, required=True, help="Path to the context file (e.g., transcript)")
-    parser.add_argument("-o", "--output", type=str, default='Modelfile', help="Path to save the generated Modelfile")
+    parser.add_argument("-o", "--output", type=str, default='./Modelfile', help="Path to save the generated Modelfile")
 
     args = parser.parse_args()
     generate_config(args.context, args.output)

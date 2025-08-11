@@ -3,3 +3,7 @@
 .vscode
 70968
 venv/
+docs/
+context/
+example_context/
+
