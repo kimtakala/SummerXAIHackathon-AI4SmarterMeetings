@@ -60,16 +60,26 @@
 
 ### Usage
 
-**Transcribe an audio file:**
+**1. Extract sample audio data:**
+
+```bash
+cd data
+unzip audio_1.zip -d audio_1
+```
+
+This will extract the audio files to `data/audio_1/` directory.
+
+**2. Transcribe an audio file:**
 
 ```bash
 python main.py <audio_file_path>
 ```
 
-**Example:**
+**Examples:**
 
 ```bash
-python main.py data/70968/61-70968-0000.flac
+# Using the extracted sample data
+python main.py data/audio_1/61-70968-0001.flac
 ```
 
 The script will generate multiple output formats in the `./output/` directory:
