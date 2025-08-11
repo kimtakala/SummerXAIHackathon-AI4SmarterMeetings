@@ -3,3 +3,4 @@ venv/
 .local
 .vscode
 70968
+.env
