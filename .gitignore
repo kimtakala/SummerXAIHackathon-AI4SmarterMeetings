@@ -1,7 +1,27 @@
-*cache*
+#local files
+.env
 .local
+.tmpdir
 .vscode
-70968
+
+# virtual environment
 venv/
 
 
+
+# cache
+*cache*
+
+# generated input/output files
+data/*/
+output/
+
+
+# cache
+*cache*
+
+# generated input/output files
+data/*/
+output/
+.gitignore
+requirements.txt
