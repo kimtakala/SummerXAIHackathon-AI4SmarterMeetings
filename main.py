@@ -1,15 +1,25 @@
 import os
 import mimetypes
-from mp3_stripping import extract_mp3
+import ollama
+from ollama import chat
+from ollama import ChatResponse
 from transcriber import transcribe
+from mp3_stripping import extract_mp3
+from utils.convert import convert_any
+from utils.docs_extrating import extract_document_content as ext_content
 
 
 def main():
-    while True:
-        folder_path = input("Input the relative folder path: ")
-        # Convert relative path to absolute path
-        absolute_path = os.path.abspath(folder_path)
-        process(absolute_path)
+    ollama.create(
+        model="ocr-er",
+        from_="openbmb/minicpm-o2.6:latest",
+        system="You are a helpful assistant.",
+    )
+    folder_path = input("Input the relative folder path: ")
+    # Convert relative path to absolute path
+
+    absolute_path = os.path.abspath(folder_path)
+    process(absolute_path)
 
 
 def find_files_by_type(folder_path):
@@ -35,7 +45,7 @@ def find_files_by_type(folder_path):
                 video_files.append(file_path)
             elif mime_type and mime_type.startswith("audio/"):
                 audio_files.append(file_path)
-            elif file_ext in [".pdf", ".png", ".pptx", ".ppt"]:
+            elif file_ext in [".pdf", ".png", ".pptx", ".jpeg", ".jpg"]:
                 document_files.append(file_path)
             else:
                 unknown_files.append((file_path, file_ext))
@@ -102,9 +112,73 @@ def handle_document_files(document_files, context_file):
     Process document/presentation files.
     """
     print(f"\n=== Processing {len(document_files)} document files ===")
+
+    pictures = []
+    pdfs = []
+    pptxs = []
+
     for doc_file in document_files:
         print(f"Processing document/presentation file: {doc_file}")
-        # TODO: Add document processing logic here
+
+        # Get file extension and base name
+        file_ext = os.path.splitext(doc_file)[1].lower()
+        file_name = os.path.splitext(os.path.basename(doc_file))[0]
+
+        if file_ext == ".png":
+            # If it's already a PNG, just add it to the list
+            pictures.append(doc_file)
+        else:
+            # Convert other formats to PNG
+            # Create output directory for converted files
+            output_dir = os.path.join("./output/", "converted_docs")
+            os.makedirs(output_dir, exist_ok=True)
+
+            try:
+                convert_any(doc_file, output_dir, file_name)
+
+                # Add the converted PNG files to the list
+                # Different file types produce different PNG naming patterns
+                if file_ext == ".pdf":
+                    # PDF creates multiple pages: filename_page_1.png, filename_page_2.png, etc.
+                    page_num = 1
+                    while True:
+                        png_file = os.path.join(
+                            output_dir, f"{file_name}_page_{page_num}.png"
+                        )
+                        if os.path.exists(png_file):
+                            pdfs.append(png_file)
+                            page_num += 1
+                        else:
+                            break
+                elif file_ext == ".pptx":
+                    # PPTX creates multiple slides: filename_slide_1.png, filename_slide_2.png, etc.
+                    slide_num = 1
+                    while True:
+                        png_file = os.path.join(
+                            output_dir, f"{file_name}_slide_{slide_num}.png"
+                        )
+                        if os.path.exists(png_file):
+                            pptxs.append(png_file)
+                            slide_num += 1
+                        else:
+                            break
+                elif file_ext in [".jpeg", ".jpg"]:
+                    # JPEG creates a single PNG: filename.png
+                    png_file = os.path.join(output_dir, f"{file_name}.png")
+                    if os.path.exists(png_file):
+                        pictures.append(png_file)
+
+            except Exception as e:
+                print(f"Error converting {doc_file}: {e}")
+
+    for picture in pictures:
+        ext_content(picture, format_="png", output_path=context_file)
+
+    for pdf in pdfs:
+        ext_content(pdf, format_="pdf", output_path=context_file)
+
+    for pptx in pptxs:
+        ext_content(pptx, format_="pptx", output_path=context_file)
 
 
 def handle_unknown_files(unknown_files):
@@ -156,18 +230,19 @@ def process(folder_path):
         # Check for unknown files first and exit if any found
         handle_unknown_files(unknown_files)
 
-        # Process files in order: video -> audio -> documents
-        # 1. Convert video files to audio first
+        # Process files in order: documents -> video -> audio
+
+        # 1. Process document files
+        if document_files:
+            handle_document_files(document_files, context_file)
+
+        # 2. Convert video files to audio first
         if video_files:
             handle_video_files(video_files, context_file)
 
-        # 2. Process all audio files (including converted ones)
+        # 3. Process all audio files (including converted ones)
         if audio_files:
             handle_audio_files(audio_files, context_file)
-
-        # 3. Process document files
-        if document_files:
-            handle_document_files(document_files, context_file)
 
     print(f"\n=== Processing complete ===")
     print(f"Total files processed:")
