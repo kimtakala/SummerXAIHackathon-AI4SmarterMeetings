@@ -1,5 +1,5 @@
-faster-whisper
-python-dotenv
-requests
-torch
 ollama
+torch
+huggingface
+pillow
+pdf2image
