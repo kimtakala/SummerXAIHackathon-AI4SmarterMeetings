@@ -7,9 +7,21 @@
 # virtual environment
 venv/
 
+
+
 # cache
 *cache*
 
 # generated input/output files
 data/*/
 output/
+
+
+# cache
+*cache*
+
+# generated input/output files
+data/*/
+output/
+.gitignore
+requirements.txt

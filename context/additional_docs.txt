@@ -1,0 +1,37 @@
+[PDF DOCUMENT]: 
+Title: PDF Bookmark Sample
+
+Header Information:
+- Logo and company name "ACCELIO"
+- Document title repeated as text in red capital letters.
+
+Sample Date Section (right-aligned):
+- May 2001
+
+Prepared By Subsection (left-aligned with bullet points, right-aligned for details on each point):
+- Prepared by: Accelio Present Applied Technology
+- Created and Tested Using:
+  - Bullet Points Indentation: • Accelio Present Central 5.4
+  - • Accelio Present Output Designer 5.4
+
+Features Demonstrated Section (left-aligned with bullet points, right-aligned for details on each point):
+- Features Demonstrated:
+  - Primary bookmarks in a PDF file.
+  - Secondary bookmarks in a PDF file.
+
+Overview Subsection Text Box Left-Aligned Centered Paragraphs Below the Header Information:
+
+This sample consists of a simple form containing four distinct fields. The data file contains eight separate records by default, the data file will produce a PDF file containing eight separated pages. The selective use of the bookmark file will produce the same PDF with a separate pane containing bookmarks.
+
+Screenshot Description Subsection (left-aligned):
+- "Acrobat Reader - [ap_bookmark.pdf]" screenshot showing an Acrobat Reader window displaying document contents and tools like Save, Edit Document View Window Help.
+- Text Box: Bookmarks on left side displayed as links to different pages within the PDF file. Example page title is shown with date range 2000-01-01.
+
+Detailed Description Subsection:
+The screenshot of this sample output shows a PDF file with bookmarks displaying available bookmarks for users in Adobe® Acrobat® Reader by clicking Window > Show Bookmarks. Selecting an index number from the left pane displays page numbers, corresponding to items listed within document structure.
+Note that The Index has been sorted according specification bookmark files; and pages ordered based upon original order data.
+
+Footer Information (left-aligned centered):
+- "PDF Bookmark Sample Page 1 of 4"
+
+(The rest of this part would be repeated for other sections following similar format)
