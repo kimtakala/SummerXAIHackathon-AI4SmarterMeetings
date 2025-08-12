@@ -3,3 +3,8 @@ torch
 huggingface
 pillow
 pdf2image
+faster-whisper
+requests
+whisperx
+pyannote.audio
+torchaudio
